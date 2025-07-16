@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d506d139446ab74b8517718d3c39ff5, type: 3}
+  m_Name: PotionStorage
+  m_EditorClassIdentifier: 
+  ListPotion:
+  - {fileID: 450539054913267525, guid: 75da48b9c7e97e84a9055417a8a295d4, type: 3}
+  - {fileID: 1380822912592613653, guid: 68a7230ecd684984b8da6300840f06a0, type: 3}
+  - {fileID: 3606172278956029984, guid: aaf2ad4c9abac494a8ba0c68b35871eb, type: 3}
+  - {fileID: 6188187640352663949, guid: fefd28c1c7fa9af4f9627ec06f8ca49a, type: 3}
+  - {fileID: 909929061874961750, guid: c9ccf70ee91898b48936e6af7a4af31b, type: 3}
+  - {fileID: 8284821735096454099, guid: d4ea681032fa1e34b9177a2678a0b488, type: 3}
+  - {fileID: 5048893844537191441, guid: f9069269f458a6f4a983130c3c26dd4e, type: 3}
+  - {fileID: 1634984939513770895, guid: 8e22cc85dc817334b954956864436962, type: 3}
+  - {fileID: 5310846554731036403, guid: 633a094899c23b843bac39d3651a2ff8, type: 3}
+  - {fileID: 4787453364950103284, guid: 2397589fbc9172d4b91046fbc42c1726, type: 3}
+  - {fileID: 440721879829296528, guid: b748e637ca8015347a72142100d1ea01, type: 3}
+  - {fileID: 818878604202257457, guid: 9550bf007982c3f479a900bbe88c4191, type: 3}
+  - {fileID: 8554441667779198880, guid: f86e2af3f2a522a4293332b5eaf28353, type: 3}
+  - {fileID: 7615221041734489561, guid: cfb7152fbfd618246aefffddf1125ca0, type: 3}
+  - {fileID: 2260014228268252832, guid: 352439e8f2181fa418d9ceaa242ccfff, type: 3}
+  - {fileID: 3215925709624555890, guid: 4d7e291e13250dd4881c7498d450dafa, type: 3}
+  - {fileID: 8698710005512434140, guid: 4a7cbbc284fcc004ab429f2b6bd9e698, type: 3}
+  - {fileID: 5600192782802505610, guid: a5e5f6b1c7fb186469ec0bc78eda1493, type: 3}
+  - {fileID: 8526516455134925267, guid: a3dc5832df09cb54ba47461eb0ea57e8, type: 3}
+  - {fileID: 3037440458230024182, guid: 8244ee5eb08c69a4c834abb0dca546d8, type: 3}
+  ListBigPotion:
+  - {fileID: 450539054913267525, guid: 75da48b9c7e97e84a9055417a8a295d4, type: 3}
+  - {fileID: 1380822912592613653, guid: 68a7230ecd684984b8da6300840f06a0, type: 3}
+  - {fileID: 3606172278956029984, guid: aaf2ad4c9abac494a8ba0c68b35871eb, type: 3}
+  - {fileID: 6188187640352663949, guid: fefd28c1c7fa9af4f9627ec06f8ca49a, type: 3}
+  - {fileID: 909929061874961750, guid: c9ccf70ee91898b48936e6af7a4af31b, type: 3}
+  - {fileID: 8284821735096454099, guid: d4ea681032fa1e34b9177a2678a0b488, type: 3}
+  - {fileID: 5048893844537191441, guid: f9069269f458a6f4a983130c3c26dd4e, type: 3}
+  - {fileID: 1634984939513770895, guid: 8e22cc85dc817334b954956864436962, type: 3}
+  - {fileID: 5310846554731036403, guid: 633a094899c23b843bac39d3651a2ff8, type: 3}
+  - {fileID: 4787453364950103284, guid: 2397589fbc9172d4b91046fbc42c1726, type: 3}
+  ListSmallPotion:
+  - {fileID: 440721879829296528, guid: b748e637ca8015347a72142100d1ea01, type: 3}
+  - {fileID: 818878604202257457, guid: 9550bf007982c3f479a900bbe88c4191, type: 3}
+  - {fileID: 8554441667779198880, guid: f86e2af3f2a522a4293332b5eaf28353, type: 3}
+  - {fileID: 7615221041734489561, guid: cfb7152fbfd618246aefffddf1125ca0, type: 3}
+  - {fileID: 2260014228268252832, guid: 352439e8f2181fa418d9ceaa242ccfff, type: 3}
+  - {fileID: 3215925709624555890, guid: 4d7e291e13250dd4881c7498d450dafa, type: 3}
+  - {fileID: 8698710005512434140, guid: 4a7cbbc284fcc004ab429f2b6bd9e698, type: 3}
+  - {fileID: 5600192782802505610, guid: a5e5f6b1c7fb186469ec0bc78eda1493, type: 3}
+  - {fileID: 8526516455134925267, guid: a3dc5832df09cb54ba47461eb0ea57e8, type: 3}
+  - {fileID: 3037440458230024182, guid: 8244ee5eb08c69a4c834abb0dca546d8, type: 3}
+  ListGreenPotion:
+  - {fileID: 3606172278956029984, guid: aaf2ad4c9abac494a8ba0c68b35871eb, type: 3}
+  - {fileID: 8554441667779198880, guid: f86e2af3f2a522a4293332b5eaf28353, type: 3}
+  ListYellowPotion:
+  - {fileID: 4787453364950103284, guid: 2397589fbc9172d4b91046fbc42c1726, type: 3}
+  - {fileID: 3037440458230024182, guid: 8244ee5eb08c69a4c834abb0dca546d8, type: 3}
+  ListBluePotion:
+  - {fileID: 1380822912592613653, guid: 68a7230ecd684984b8da6300840f06a0, type: 3}
+  - {fileID: 818878604202257457, guid: 9550bf007982c3f479a900bbe88c4191, type: 3}
+  ListRedPotion:
+  - {fileID: 1634984939513770895, guid: 8e22cc85dc817334b954956864436962, type: 3}
+  - {fileID: 5600192782802505610, guid: a5e5f6b1c7fb186469ec0bc78eda1493, type: 3}
+  ListBlackPotion:
+  - {fileID: 450539054913267525, guid: 75da48b9c7e97e84a9055417a8a295d4, type: 3}
+  - {fileID: 440721879829296528, guid: b748e637ca8015347a72142100d1ea01, type: 3}
+  ListPurplePotion:
+  - {fileID: 8284821735096454099, guid: d4ea681032fa1e34b9177a2678a0b488, type: 3}
+  - {fileID: 3215925709624555890, guid: 4d7e291e13250dd4881c7498d450dafa, type: 3}
+  ListMintGreenPotion:
+  - {fileID: 6188187640352663949, guid: fefd28c1c7fa9af4f9627ec06f8ca49a, type: 3}
+  - {fileID: 7615221041734489561, guid: cfb7152fbfd618246aefffddf1125ca0, type: 3}
+  ListNavyBluePotion:
+  - {fileID: 909929061874961750, guid: c9ccf70ee91898b48936e6af7a4af31b, type: 3}
+  - {fileID: 2260014228268252832, guid: 352439e8f2181fa418d9ceaa242ccfff, type: 3}
+  ListVioletPotion:
+  - {fileID: 5310846554731036403, guid: 633a094899c23b843bac39d3651a2ff8, type: 3}
+  - {fileID: 8526516455134925267, guid: a3dc5832df09cb54ba47461eb0ea57e8, type: 3}
+  ListRainbowPotion:
+  - {fileID: 5048893844537191441, guid: f9069269f458a6f4a983130c3c26dd4e, type: 3}
+  - {fileID: 8698710005512434140, guid: 4a7cbbc284fcc004ab429f2b6bd9e698, type: 3}

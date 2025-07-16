@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ShelfSlot
   layers:
   - Default
   - TransparentFX
@@ -11,9 +12,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - PotionShelf
+  - ShelfSlot
+  - Potion
   - 
   - 
   - 
@@ -40,4 +41,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PotionShelf
+    uniqueID: 3284938155
+    locked: 0
+  - name: ShelfSlot
+    uniqueID: 3056522155
+    locked: 0
+  - name: Potion
+    uniqueID: 4186974647
     locked: 0
