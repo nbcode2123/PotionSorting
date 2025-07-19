@@ -63,6 +63,8 @@ public class EasySortingAlgorithm : MonoBehaviour, ISortingAlgorithm
                 CompleteChecker.Instance.AddPotionInLevel(_potion);
                 ListPotion.Add(_potion);
                 LevelManager.Instance.ListPotionInLevel.Add(_potion);
+                LevelManager.Instance.ListPotionInShelf.Add(_potion);
+
 
 
             }
@@ -72,60 +74,23 @@ public class EasySortingAlgorithm : MonoBehaviour, ISortingAlgorithm
         }
 
     }
-    // public void ShufflePotion()
-    // {
-    //     int n = ListPotion.Count;
-    //     for (int i = 0; i < n; i++)
-    //     {
-    //         var _temp1 = Random.Range(0, n);
-    //         var _temp2 = Random.Range(0, n);
 
-    //         (ListPotion[_temp1], ListPotion[_temp2]) = (ListPotion[_temp2], ListPotion[_temp1]);
-    //     }
-    // }
     public void PutPotionToShelf()
     {
-        // List<IShelfSlot> _copyListShelfSlot = new List<IShelfSlot>(ListShelfSlot);
-        // List<IShelfSlot> _listShuffleShelfSlot = new List<IShelfSlot>();
-        // IShelfSlot _tempIShelfSlot;
-        // int _randomShelfSlot;
 
-        // for (int i = 0; i < ListPotion.Count; i++)
-        // {
-        //     _randomShelfSlot = Random.Range(0, _copyListShelfSlot.Count + 1);
-        //     _tempIShelfSlot = _copyListShelfSlot[_randomShelfSlot];
-        //     _listShuffleShelfSlot.Add(_tempIShelfSlot);
-        //     _copyListShelfSlot.Remove(_tempIShelfSlot);
-
-
-        // }
-        // for (int i = 0; i < _listShelfSlotHavePotion.Count; i++)
-        // {
-        //     _listShelfSlotHavePotion[i].SetPotion(ListPotion[i].GetComponent<Potion>());
-        // }
-        // for (int i = 0; i < _listShelfSlotHavePotion.Count; i++)
-        // {
-        //     _listShelfSlotHavePotion[0].PushPotionToCollection(ListPotion[i].GetComponent<Potion>());
-
-        // }
-        // for (int i = 0; i < _listShuffleShelfSlot.Count; i++)
-        // {
-        //     // int _potionInStack = Random.Range(1, MultiplesPotion + 1);
-        //     for (int j = 0; j < 3; j++)
-        //     {
-        //         _listShuffleShelfSlot[i].PushPotionToCollection(ListPotion[j].GetComponent<Potion>());
-
-        //     }
-
-        // }
         int _ListShelfSlot = ListShelfSlot.Count;
         for (int i = 0; i < ListPotion.Count; i++)
         {
 
             if (ListPotion.Count - i == _ListShelfSlot)
             {
-                int _tempRemoveRandomShelf = Random.Range(0, ListShelfSlot.Count);
-                ListShelfSlot.RemoveAt(_tempRemoveRandomShelf);
+                int _tempRemoveRandomShelf1 = Random.Range(0, ListShelfSlot.Count);
+                ListShelfSlot.RemoveAt(_tempRemoveRandomShelf1);
+                int _tempRemoveRandomShelf2 = Random.Range(0, ListShelfSlot.Count);
+                ListShelfSlot.RemoveAt(_tempRemoveRandomShelf2);
+                int _tempRemoveRandomShelf3 = Random.Range(0, ListShelfSlot.Count);
+                ListShelfSlot.RemoveAt(_tempRemoveRandomShelf3);
+
 
 
             }
@@ -141,9 +106,10 @@ public class EasySortingAlgorithm : MonoBehaviour, ISortingAlgorithm
         }
         for (int i = 0; i < ListShelfSlot.Count; i++)
         {
-            ListShelfSlot[i].FirstPotionInCollectionSetUp();
             ListShelfSlot[i].SecondPotionInCollectionSetUp();
+            ListShelfSlot[i].FirstPotionInCollectionSetUp();
         }
+
 
 
 
@@ -163,6 +129,7 @@ public class EasySortingAlgorithm : MonoBehaviour, ISortingAlgorithm
         CreatePoolPotion();
         // ShufflePotion();
         PutPotionToShelf();
+        CheckForMatchWhenInit();
 
 
 

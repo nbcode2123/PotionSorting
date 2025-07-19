@@ -16,4 +16,8 @@ public class GameObjectStorage : MonoBehaviour
     }
     public PotionStorage PotionStorage;
     public PotionShelfStorage PotionShelfStorage;
+    public GameObject DisappearEffect;
+    public GameObject CoinLootTrigger;
+    public GameObject Coin;
+    public GameObject MiddleSceneCamera;
 }

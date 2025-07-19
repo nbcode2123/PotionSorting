@@ -17,14 +17,10 @@ public class NormalMatch : MonoBehaviour, IMatchChecker
         {
             if (listPotion[i].GetColor() != colorType)
             {
-                Debug.Log("Single shelf not match");
-
                 return;
-
             }
             if (listPotion[i].GetShape() != shapeType)
             {
-                Debug.Log("Single shelf not match");
 
                 return;
 
@@ -34,9 +30,15 @@ public class NormalMatch : MonoBehaviour, IMatchChecker
         {
             listPotion[i].gameObject.GetComponent<DragAndDropController>().DisableThisPotion();
             listPotion[i].gameObject.SetActive(false);
+            // Destroy(listPotion[i].gameObject);
+            Instantiate(GameObjectStorage.Instance.DisappearEffect, listPotion[i].gameObject.transform.position, Quaternion.identity);
             ObserverManager.Notify("BestMatch", listPotion[i].gameObject);
 
+
         }
+        ObserverManager.Notify("BestMatch");
+
+
         listPotion.Clear();
         // if (potion1 == null || potion2 == null || potion3 == null)
         // {

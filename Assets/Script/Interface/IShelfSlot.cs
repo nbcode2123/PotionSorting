@@ -18,6 +18,7 @@ public interface IShelfSlot
 
     void NotifyToCheckEmpty();
     List<Potion> GetPotionInStack();
+    void ClearStack();
 
 
 

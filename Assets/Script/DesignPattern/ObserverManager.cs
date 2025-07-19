@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using UnityEngine.Windows.Speech;
 
 public class ObserverManager : MonoBehaviour
 {
@@ -12,11 +9,9 @@ public class ObserverManager : MonoBehaviour
     void Awake()
     {
         Listeners.Clear();
-        // DontDestroyOnLoad(gameObject);
 
     }
 
-    #region Observer Subject  
     public static Dictionary<string, List<Delegate>> Listeners = new Dictionary<string, List<Delegate>>();
     public static void AddListener(string name, Action callback) // ko có tham số truyền vào 
     {
@@ -99,22 +94,6 @@ public class ObserverManager : MonoBehaviour
         {
             return;
         }
-        // foreach (var Listener in Listeners[name])
-        // {
-        //     if (Listener is Action action)
-        //     {
-        //         try
-        //         {
-        //             action?.Invoke();
-
-        //         }
-        //         catch (Exception e)
-        //         {
-
-        //             Debug.LogError("Observer problem " + e + Listener);
-        //         }
-        //     }
-        // }
         for (int i = 0; i < Listeners[name].Count; i++)
         {
             if (Listeners[name][i] is Action action)
@@ -132,5 +111,5 @@ public class ObserverManager : MonoBehaviour
             }
         }
     }
-    #endregion
+
 }

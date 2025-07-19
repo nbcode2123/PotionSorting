@@ -5,7 +5,7 @@ using UnityEngine;
 public class CompleteChecker : MonoBehaviour
 {
     public static CompleteChecker Instance { get; private set; }
-    public List<GameObject> ListPotionInLevel;
+    public List<GameObject> ListPotionInShelf;
     public List<GameObject> ListPotionMatch;
     private void Awake()
     {
@@ -17,8 +17,9 @@ public class CompleteChecker : MonoBehaviour
         {
             Instance = this;
         }
-        ListPotionInLevel = new List<GameObject>();
+        ListPotionInShelf = new List<GameObject>();
         ListPotionMatch = new List<GameObject>();
+
     }
     private void Start()
     {
@@ -39,16 +40,19 @@ public class CompleteChecker : MonoBehaviour
     }
     public void AddPotionInLevel(GameObject potion)
     {
-        ListPotionInLevel.Add(potion);
+        ListPotionInShelf.Add(potion);
     }
     public void AddPotionToMatchList(GameObject potion)
     {
         ListPotionMatch.Add(potion);
+        ListPotionInShelf.Remove(potion);
+        LevelManager.Instance.ListPotionMatch.Add(potion);
+        LevelManager.Instance.ListPotionInShelf.Remove(potion);
         CheckGameComplete();
     }
     public void CheckGameComplete()
     {
-        if (ListPotionInLevel.Count != ListPotionMatch.Count)
+        if (ListPotionInShelf.Count != 0)
         {
             return;
         }

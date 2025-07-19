@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class DragAndDropController : MonoBehaviour
 {
     [SerializeField] private Collider2D Collider;
-    [SerializeField] private Vector3 LastPosition;
+    public Vector3 LastPosition;
     [SerializeField] private SpriteRenderer SpriteRenderer;
     private Potion Potion;
     private IShelfSlot LastShelfSlot;
@@ -19,14 +19,16 @@ public class DragAndDropController : MonoBehaviour
     }
     private void Start()
     {
-        LastPosition = gameObject.transform.position;
-        // Bóp: Thu nhỏ Y, tăng X một chút
 
 
     }
     private void OnMouseDown()
     {
-        // LastPosition = transform.position;
+
+        ObserverManager.Notify("Start");
+
+
+
         gameObject.transform.position = GetMousePositionInWorldSpace();
         SpriteRenderer.sortingOrder = 1;
 
@@ -55,14 +57,13 @@ public class DragAndDropController : MonoBehaviour
                     LastShelfSlot.UnSetPotion();
                     NewShelfSlot.SetPotion(Potion);
                     LastShelfSlot = NewShelfSlot;
-                    gameObject.transform.position = NewShelfSlot.GetPivotPosition();
                     LastPosition = NewShelfSlot.GetPivotPosition();
                     SlotsEmptyChecker.Instance.CheckEmptySlot();
 
                 }
                 else
                 {
-                    transform.position = LastPosition;
+                    gameObject.transform.position = LastPosition;
 
                 }
             }
@@ -75,7 +76,6 @@ public class DragAndDropController : MonoBehaviour
                     LastShelfSlot.NotifyToCheckEmpty();
                     NewShelfSlot.SetPotion(Potion);
                     LastShelfSlot = NewShelfSlot;
-                    gameObject.transform.position = NewShelfSlot.GetPivotPosition();
                     LastPosition = NewShelfSlot.GetPivotPosition();
                     NewShelfSlot.NotifyToCheckMatch();
                     SlotsEmptyChecker.Instance.CheckEmptySlot();
@@ -85,14 +85,14 @@ public class DragAndDropController : MonoBehaviour
                 }
                 else
                 {
-                    transform.position = LastPosition;
+                    gameObject.transform.position = LastPosition;
 
                 }
             }
         }
         else
         {
-            transform.position = LastPosition;
+            gameObject.transform.position = LastPosition;
 
         }
 
@@ -100,7 +100,7 @@ public class DragAndDropController : MonoBehaviour
     }
     public void SquashAndStretch()
     {
-        transform.DOScale(new Vector3(1.2f, 0.8f, 1f), 0.2f).SetEase(Ease.InOutQuad).SetLoops(2, LoopType.Yoyo);// quay lại kích thước gốc sau 1 giây
+        transform.DOScale(new Vector3(1.2f, 0.8f, 1f), 0.2f).SetEase(Ease.InOutQuad).SetLoops(2, LoopType.Yoyo);
         SpriteRenderer.sortingOrder = 0;
     }
     public void SetLastShelfSlot(IShelfSlot lastShelfSlot)
@@ -114,12 +114,18 @@ public class DragAndDropController : MonoBehaviour
         gameObject.GetComponent<Collider2D>().enabled = false;
 
 
+
+
     }
     public Vector3 GetMousePositionInWorldSpace()
     {
         Vector3 _pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         _pos.z = 0;
         return _pos;
+    }
+    public void SetLastPosition(Vector3 position)
+    {
+        LastPosition = position;
     }
 
 

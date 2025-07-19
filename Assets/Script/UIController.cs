@@ -1,35 +1,154 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject ObjDisable;
-    public GameObject PlayBtnObj;
+    public GameObject PlayBtn;
     public Image CircleMaskObj;
     public GameObject PauseCanvas;
     public GameObject SoundBtn;
     public GameObject MusicBtn;
     public GameObject ContinuesBtn;
+    public GameObject PauseBtn;
+    public GameObject BackToHome;
+    public GameObject GameOverPanel;
+    public TextMeshProUGUI LevelText;
+    public List<GameObject> ListObjInLevel;
+    public List<GameObject> ListObjInMenu;
+    public GameObject CompletePanel;
+    public Sequence SequenceCircleEffect;
+
+    private void Awake()
+    {
+
+    }
     public void Start()
     {
         PauseCanvas.SetActive(false);
+        CompletePanel.SetActive(false);
+        GameOverPanel.SetActive(false);
+        TurnOffObjInLevel();
+        TurnOnObjInMenu();
+        ObserverManager.AddListener("Level Complete", TurnOnCompletePanel);
+        ObserverManager.AddListener("Game Over", TurnOnGameOverPanel);
+
+
 
     }
+    public void TurnOnGameOverPanel()
+    {
+        CompletePanel.SetActive(true);
+
+
+
+    }
+    public void TurnOffObjInLevel()
+    {
+        for (int i = 0; i < ListObjInLevel.Count; i++)
+        {
+            ListObjInLevel[i].SetActive(false);
+        }
+
+    }
+    public void TurnOnObjInLevel()
+    {
+        for (int i = 0; i < ListObjInLevel.Count; i++)
+        {
+            ListObjInLevel[i].SetActive(true);
+        }
+
+    }
+    public void TurnOffObjInMenu()
+    {
+        for (int i = 0; i < ListObjInMenu.Count; i++)
+        {
+            ListObjInMenu[i].SetActive(false);
+        }
+
+    }
+    public void TurnOnObjInMenu()
+    {
+        for (int i = 0; i < ListObjInMenu.Count; i++)
+        {
+            ListObjInMenu[i].SetActive(true);
+        }
+
+    }
+    public void TurnOnCompletePanel()
+    {
+
+        CompletePanel.SetActive(true);
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0;
         PauseCanvas.SetActive(true);
+        PauseBtn.GetComponent<Button>().interactable = false;
+        PlayBtn.GetComponent<Button>().interactable = false;
+        ObserverManager.Notify("Pause");
     }
     public void Continues()
     {
         Time.timeScale = 1;
+        PauseCanvas.SetActive(false);
+        PauseBtn.GetComponent<Button>().interactable = true;
+        PlayBtn.GetComponent<Button>().interactable = true;
+        ObserverManager.Notify("Continues");
+
     }
-    public void PlayBtn()
+    public void PlayBtnAction()
     {
         CircleMaskZoomToLevel();
+        LevelManager.Instance.Level++;
+        LevelText.text = $"Lv.{LevelManager.Instance.Level}";
+        CompletePanel.SetActive(false);
+        GameOverPanel.SetActive(false);
+
+
+
+    }
+    public void BackToMenu()
+    {
+        Time.timeScale = 1;
+        RectTransform rt = CircleMaskObj.GetComponent<RectTransform>();
+        Vector2 _default = rt.sizeDelta;
+        SequenceCircleEffect = DOTween.Sequence();
+        SequenceCircleEffect.Append(rt.DOSizeDelta(Vector2.zero, 1)
+               .SetEase(Ease.OutQuad)
+               .OnComplete(() =>
+               {
+                   if (Vector2.Distance(rt.sizeDelta, Vector2.zero) < 0.01f)
+                   {
+                       ObserverManager.Notify("BackToMenu");
+                       CameraController.Instance.SetPotionShelfToCamera(GameObjectStorage.Instance.MiddleSceneCamera, 8);
+                       PlayBtn.SetActive(true);
+                       TurnOnObjInMenu();
+                       TurnOffObjInLevel();
+                       CompletePanel.SetActive(false);
+                       GameOverPanel.SetActive(false);
+                       PauseCanvas.SetActive(false);
+                       PauseBtn.GetComponent<Button>().interactable = true;
+                       PlayBtn.GetComponent<Button>().interactable = true;
+                       Destroy(LevelManager.Instance.CurrentPotionShelf);
+                       for (int i = 0; i < LevelManager.Instance.ListPotionInLevel.Count; i++)
+                       {
+                           Destroy(LevelManager.Instance.ListPotionInLevel[i]);
+                       }
+
+
+
+
+                   }
+
+               }));
+        SequenceCircleEffect.AppendInterval(1f);
+        SequenceCircleEffect.Append(rt.DOSizeDelta(_default, 1).SetEase(Ease.OutQuad));
 
 
     }
@@ -38,26 +157,24 @@ public class UIController : MonoBehaviour
 
         RectTransform rt = CircleMaskObj.GetComponent<RectTransform>();
         Vector2 _default = rt.sizeDelta;
-        Sequence seq = DOTween.Sequence();
+        SequenceCircleEffect = DOTween.Sequence();
 
-        seq.Append(rt.DOSizeDelta(Vector2.zero, 1)
+        SequenceCircleEffect.Append(rt.DOSizeDelta(Vector2.zero, 1)
                .SetEase(Ease.OutQuad)
-
                .OnComplete(() =>
                {
-                   // 👈 Chạy sau mỗi vòng (đi hoặc về)
                    if (Vector2.Distance(rt.sizeDelta, Vector2.zero) < 0.01f)
                    {
                        ObserverManager.Notify("New Level");
-                       ObjDisable.SetActive(false);
-                       PlayBtnObj.SetActive(false);
+                       PlayBtn.SetActive(false);
+                       TurnOffObjInMenu();
+                       TurnOnObjInLevel();
+
                    }
 
                }));
-        seq.AppendInterval(1f);
-        seq.Append(rt.DOSizeDelta(_default, 1)
-                    .SetEase(Ease.OutQuad))
-;
+        SequenceCircleEffect.AppendInterval(1f);
+        SequenceCircleEffect.Append(rt.DOSizeDelta(_default, 1).SetEase(Ease.OutQuad));
 
 
 

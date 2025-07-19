@@ -49,7 +49,6 @@ public class SingleShelf : MonoBehaviour, ISingleShelf
             if (ListShelfSlots[i].GetPotion() == null)
             {
                 ListPotions.Clear();
-                Debug.Log(gameObject.name + "Single shelf not match");
                 return;
             }
             else
@@ -62,20 +61,19 @@ public class SingleShelf : MonoBehaviour, ISingleShelf
         }
 
         matchChecker.CheckMatch(ListPotions);
-        Debug.Log(gameObject.name + "Single shelf not match");
+
 
         if (ListPotions.Count == 0)
         {
+            CoinCreateEffect.Instance.CreateCoin(CoinCalculator.Instance.CoinDefault, gameObject.transform.position);
             for (int i = 0; i < ListShelfSlots.Count; i++)
             {
-                // GameObject _tempObj = ((MonoBehaviour)ListShelfSlots[i]).gameObject;
-                // _tempObj.GetComponent<Collider2D>().enabled = true;
-                // ListShelfSlots[i].UnSetPotion();
-                // // Debug.Log(_tempObj.GetComponent<Collider2D>().enabled);
-                ListShelfSlots[i].FirstPotionInCollectionSetUp();
                 ListShelfSlots[i].SecondPotionInCollectionSetUp();
+                ListShelfSlots[i].FirstPotionInCollectionSetUp();
+
             }
         }
+        CheckEmpty();
 
     }
     public void CheckEmpty()
@@ -91,9 +89,8 @@ public class SingleShelf : MonoBehaviour, ISingleShelf
         }
         for (int i = 0; i < ListShelfSlots.Count; i++)
         {
-
-            ListShelfSlots[i].FirstPotionInCollectionSetUp();
             ListShelfSlots[i].SecondPotionInCollectionSetUp();
+            ListShelfSlots[i].FirstPotionInCollectionSetUp();
 
         }
 

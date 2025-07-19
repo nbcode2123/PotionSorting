@@ -27,7 +27,6 @@ public class SlotsEmptyChecker : MonoBehaviour
     }
     public void CheckEmptySlot()
     {
-        Debug.Log(ListShelfSlot.Count);
         for (int i = 0; i < ListShelfSlot.Count; i++)
         {
             if (ListShelfSlot[i].GetPotion() == null)
@@ -37,15 +36,16 @@ public class SlotsEmptyChecker : MonoBehaviour
             }
         }
         Debug.Log("All slot have potion");
+        ObserverManager.Notify("Game Over");
         for (int i = 0; i < ListShelfSlot.Count; i++)
         {
             ListPotionLeft.Add(ListShelfSlot[i].GetPotion());
             ListPotionLeft.AddRange(ListShelfSlot[i].GetPotionInStack());
         }
-        for (int i = 0; i < ListPotionLeft.Count; i++)
-        {
-            ListPotionLeft[i].gameObject.SetActive(false);
-        }
+        // for (int i = 0; i < ListPotionLeft.Count; i++)
+        // {
+        //     ListPotionLeft[i].gameObject.SetActive(false);
+        // }
 
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class ShelfSlot : MonoBehaviour, IShelfSlot
@@ -12,6 +13,8 @@ public class ShelfSlot : MonoBehaviour, IShelfSlot
     public GameObject BehindPivot;
     public Stack<Potion> StackPotionInSlot;
     public bool isEmpty;
+    public Tween TweenEffectColor;
+    public Tween TweenEffectTransform;
     private void Awake()
     {
 
@@ -34,9 +37,12 @@ public class ShelfSlot : MonoBehaviour, IShelfSlot
         CurrentPotion = potion;
         isEmpty = false;
 
+
         GameObject _potionObj = CurrentPotion.gameObject;
-        _potionObj.transform.position = MiddlePivot.transform.position;
         _potionObj.GetComponent<DragAndDropController>().SetLastShelfSlot(this);
+        _potionObj.transform.position = MiddlePivot.transform.position;
+        _potionObj.GetComponent<DragAndDropController>().SetLastPosition(MiddlePivot.transform.position);
+
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         // NotifyToCheckMatch();
 
@@ -93,10 +99,25 @@ public class ShelfSlot : MonoBehaviour, IShelfSlot
             Potion _tempPotion = StackPotionInSlot.Pop();
             CurrentPotion = _tempPotion;
             GameObject _potionObj = CurrentPotion.gameObject;
-            _potionObj.SetActive(true);
-            _potionObj.transform.position = MiddlePivot.transform.position;
+            _potionObj.GetComponent<Collider2D>().enabled = false;
             _potionObj.GetComponent<DragAndDropController>().SetLastShelfSlot(this);
-            _potionObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            _potionObj.GetComponent<DragAndDropController>().SetLastPosition(MiddlePivot.transform.position);
+
+            _potionObj.SetActive(true);
+
+            // _potionObj.transform.position = MiddlePivot.transform.position;
+            // _potionObj.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+
+            TweenEffectColor = _potionObj.GetComponent<SpriteRenderer>().DOColor(new Color(1f, 1f, 1f, 1f), 0.5f).OnComplete(() => { TweenEffectColor.Kill(); });
+            TweenEffectTransform = _potionObj.transform.DOMove(MiddlePivot.transform.position, 0.5f)
+             .OnComplete(() =>
+                 {
+                     _potionObj.GetComponent<Collider2D>().enabled = true;
+                     TweenEffectTransform.Kill();
+                 }
+             );
+
+
             _potionObj.GetComponent<SpriteRenderer>().sortingOrder = 0;
             _potionObj.GetComponent<BoxCollider2D>().enabled = true;
             gameObject.GetComponent<Collider2D>().enabled = false;
@@ -104,6 +125,7 @@ public class ShelfSlot : MonoBehaviour, IShelfSlot
 
 
         }
+        SecondPotionInCollectionSetUp();
     }
 
     public void SecondPotionInCollectionSetUp()
@@ -121,11 +143,14 @@ public class ShelfSlot : MonoBehaviour, IShelfSlot
             Potion _tempPotion = StackPotionInSlot.Peek();
             GameObject _potionObj = _tempPotion.gameObject;
             _potionObj.SetActive(true);
-            _potionObj.transform.position = BehindPivot.transform.position;
             _potionObj.GetComponent<DragAndDropController>().SetLastShelfSlot(this);
             _potionObj.GetComponent<SpriteRenderer>().color = new Color(150f / 255f, 150f / 255f, 150f / 255f, 1f);
             _potionObj.GetComponent<SpriteRenderer>().sortingOrder = -1;
             _potionObj.GetComponent<BoxCollider2D>().enabled = false;
+            _potionObj.transform.position = BehindPivot.transform.position;
+            _potionObj.GetComponent<DragAndDropController>().SetLastPosition(MiddlePivot.transform.position);
+
+
 
         }
     }
@@ -137,4 +162,11 @@ public class ShelfSlot : MonoBehaviour, IShelfSlot
 
 
     }
+    public void ClearStack()
+    {
+        CurrentPotion = null;
+        StackPotionInSlot = new Stack<Potion>();
+
+    }
+
 }
