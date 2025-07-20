@@ -24,7 +24,11 @@ public class CoinEffect : MonoBehaviour
         TweenEffect = gameObject.transform
         .DOMove(GameObjectStorage.Instance.CoinLootTrigger.transform.position, 0.5f)
         .SetEase(Ease.InBack)
-        .OnComplete(() => Destroy(gameObject));
+        .OnComplete(() =>
+        {
+            Destroy(gameObject);
+        }
+        );
 
     }
     private void OnDestroy()

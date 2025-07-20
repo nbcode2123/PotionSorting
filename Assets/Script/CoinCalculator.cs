@@ -30,9 +30,11 @@ public class CoinCalculator : MonoBehaviour
 
 
     }
-    public void DecreaseCoin()
+    public void DecreaseCoin(int value)
     {
-
+        CoinCounter = CoinCounter - value;
+        CoinCounterText.text = CoinCounter.ToString();
+        PlayerPrefs.SetInt("Coin", CoinCounter);
     }
     public void IncreaseCoin()
     {

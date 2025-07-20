@@ -37,6 +37,8 @@ public class LevelManager : MonoBehaviour
     public void Start()
     {
         ObserverManager.AddListener("New Level", CreateNewLevel);
+        ObserverManager.AddListener("Game Over", ResetLevel);
+
         // CreateNewLevel();
 
 
@@ -45,12 +47,20 @@ public class LevelManager : MonoBehaviour
     public void OnDestroy()
     {
         ObserverManager.RemoveListener("New Level", CreateNewLevel);
+        ObserverManager.RemoveListener("Game Over", ResetLevel);
+
 
     }
     public void OnDisable()
     {
         ObserverManager.RemoveListener("New Level", CreateNewLevel);
+        ObserverManager.RemoveListener("Game Over", ResetLevel);
 
+
+    }
+    public void ResetLevel()
+    {
+        Level = 1;
     }
     public void CreateNewLevel()
     {
@@ -64,8 +74,8 @@ public class LevelManager : MonoBehaviour
             Destroy(CurrentPotionShelf);
         }
         List<GameObject> _potionShelf = GameObjectStorage.Instance.PotionShelfStorage.ListPotionShelf;
-        // CurrentPotionShelf = Instantiate(GameObjectStorage.Instance.PotionShelfStorage.ListPotionShelf[Random.Range(0, _potionShelf.Count)]);
-        CurrentPotionShelf = Instantiate(GameObjectStorage.Instance.PotionShelfStorage.ListPotionShelf[0]);
+        CurrentPotionShelf = Instantiate(GameObjectStorage.Instance.PotionShelfStorage.ListPotionShelf[Random.Range(0, _potionShelf.Count)]);
+        // CurrentPotionShelf = Instantiate(GameObjectStorage.Instance.PotionShelfStorage.ListPotionShelf[0]);
 
         GameObject UIProperties = CurrentPotionShelf.transform.GetChild(0).gameObject;
         UIPropertiesPotionShelf _uIProperties = UIProperties.GetComponent<UIPropertiesPotionShelf>();

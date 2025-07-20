@@ -43,6 +43,7 @@ public class DragAndDropController : MonoBehaviour
     }
     private void OnMouseUp()
     {
+        ObserverManager.Notify("Drop", "DropPotion");
         SquashAndStretch();
         SpriteRenderer.sortingOrder = 0;
         Collider2D hit = Physics2D.OverlapPoint(transform.position, LayerMask.GetMask("ShelfSlot"));

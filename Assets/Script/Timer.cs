@@ -109,6 +109,7 @@ public class Timer : MonoBehaviour
     public void OnTimerEnd()
     {
         Debug.Log("Hết giờ!");
+        ObserverManager.Notify("Game Over");
     }
     public void PauseTimer()
     {

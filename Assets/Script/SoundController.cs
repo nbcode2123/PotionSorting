@@ -7,10 +7,12 @@ using UnityEngine.Audio;
 public class SoundController : MonoBehaviour
 {
     public static SoundController Instance { private set; get; }
-    [SerializeField] private AudioSource audioSourceMusic;
-    [SerializeField] private AudioSource audioSourceSFX;
-    [SerializeField] private AudioSource audioSourceUI;
-    [SerializeField] private AudioMixer audioMixer;
+    public AudioSource audioSourceMusic;
+    public AudioSource audioSourceSFX;
+    public AudioSource audioSourceUI;
+    public AudioMixer audioMixer;
+    public List<AudioComponent> DicAudioClip = new List<AudioComponent>();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,7 +26,26 @@ public class SoundController : MonoBehaviour
 
         }
     }
-    public List<AudioComponent> DicAudioClip = new List<AudioComponent>();
+    private void Start()
+    {
+        ObserverManager.AddListener<string>("Drop", ActiveAudioClip);
+        ObserverManager.AddListener<string>("CoinLoot", ActiveAudioClip);
+        ObserverManager.AddListener<string>("ClickBtn", ActiveAudioClip);
+
+
+
+    }
+    private void OnDestroy()
+    {
+        ObserverManager.RemoveListener<string>("Drop", ActiveAudioClip);
+
+    }
+    private void OnDisable()
+    {
+        ObserverManager.RemoveListener<string>("Drop", ActiveAudioClip);
+
+    }
+
     public void ActiveAudioClip(string tag)
     {
         AudioComponent _audioComponent = DicAudioClip.Find(p => p.TagAudio == tag);
@@ -39,9 +60,13 @@ public class SoundController : MonoBehaviour
             }
             else if (_audioComponent.TagAudioSource == TagAudioSource.SFX)
             {
+
                 audioSourceSFX.clip = _audioComponent.AudioClip;
                 audioSourceSFX.loop = false;
                 audioSourceSFX.PlayOneShot(_audioComponent.AudioClip);
+                audioSourceSFX.clip = null;
+
+
             }
             else if (_audioComponent.TagAudioSource == TagAudioSource.UI)
             {
@@ -53,6 +78,7 @@ public class SoundController : MonoBehaviour
         }
         else return;
     }
+
 }
 public enum TagAudioSource
 {

@@ -11,7 +11,7 @@ public class UIController : MonoBehaviour
     public GameObject PlayBtn;
     public Image CircleMaskObj;
     public GameObject PauseCanvas;
-    public GameObject SoundBtn;
+    public GameObject SFXBtn;
     public GameObject MusicBtn;
     public GameObject ContinuesBtn;
     public GameObject PauseBtn;
@@ -22,6 +22,13 @@ public class UIController : MonoBehaviour
     public List<GameObject> ListObjInMenu;
     public GameObject CompletePanel;
     public Sequence SequenceCircleEffect;
+    public bool isMusicOn = true;
+    public bool isSFXOn = true;
+    public Sprite SpriteMusicOn;
+    public Sprite SpriteSFXOn;
+    public Sprite SpriteMusicOff;
+    public Sprite SpriteSFXOff;
+
 
     private void Awake()
     {
@@ -92,6 +99,8 @@ public class UIController : MonoBehaviour
         PauseBtn.GetComponent<Button>().interactable = false;
         PlayBtn.GetComponent<Button>().interactable = false;
         ObserverManager.Notify("Pause");
+
+
     }
     public void Continues()
     {
@@ -105,6 +114,17 @@ public class UIController : MonoBehaviour
     public void PlayBtnAction()
     {
         CircleMaskZoomToLevel();
+        // LevelManager.Instance.Level++;
+        LevelText.text = $"Lv.{LevelManager.Instance.Level}";
+        CompletePanel.SetActive(false);
+        GameOverPanel.SetActive(false);
+
+
+
+    }
+    public void NextLevel()
+    {
+        CircleMaskZoomToLevel();
         LevelManager.Instance.Level++;
         LevelText.text = $"Lv.{LevelManager.Instance.Level}";
         CompletePanel.SetActive(false);
@@ -112,6 +132,14 @@ public class UIController : MonoBehaviour
 
 
 
+    }
+    public void NextLevelWhenGameOver()
+    {
+        CircleMaskZoomToLevel();
+        LevelManager.Instance.Level = 1;
+        LevelText.text = $"Lv.{LevelManager.Instance.Level}";
+        CompletePanel.SetActive(false);
+        GameOverPanel.SetActive(false);
     }
     public void BackToMenu()
     {
@@ -152,6 +180,46 @@ public class UIController : MonoBehaviour
 
 
     }
+    public void OnBtnMusic()
+    {
+        if (isMusicOn == true)
+        {
+            SoundController.Instance.audioSourceMusic.volume = 0;
+            isMusicOn = false;
+            MusicBtn.GetComponent<Image>().sprite = SpriteMusicOff;
+
+
+        }
+        else
+        {
+            SoundController.Instance.audioSourceMusic.volume = 1;
+            isMusicOn = true;
+            MusicBtn.GetComponent<Image>().sprite = SpriteMusicOn;
+
+        }
+
+    }
+    public void OnBtnSFX()
+    {
+        if (isSFXOn == true)
+        {
+            SoundController.Instance.audioSourceSFX.volume = 0;
+            isSFXOn = false;
+            SFXBtn.GetComponent<Image>().sprite = SpriteSFXOff;
+
+
+        }
+        else
+        {
+            SoundController.Instance.audioSourceSFX.volume = 1;
+            isSFXOn = true;
+            SFXBtn.GetComponent<Image>().sprite = SpriteSFXOn;
+
+        }
+
+    }
+
+
     public void CircleMaskZoomToLevel()
     {
 

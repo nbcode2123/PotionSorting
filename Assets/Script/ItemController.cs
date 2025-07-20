@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
+    public int ShufflePrice;
+    public int FreezeTimePrice;
     public void ShufflePotion()
     {
-        var _listPotionInShelf = LevelManager.Instance.ListPotionInShelf;
-        var _listShelfSlot = LevelManager.Instance.ListShelfSlots;
-        var _listSingleShelf = LevelManager.Instance.ListSingleShelf;
-        for (int i = 0; i < _listShelfSlot.Count; i++)
+        if (CoinCalculator.Instance.CoinCounter >= ShufflePrice)
         {
-            _listShelfSlot[i].ClearStack();
+            CoinCalculator.Instance.DecreaseCoin(ShufflePrice);
+
+            var _listPotionInShelf = LevelManager.Instance.ListPotionInShelf;
+            var _listShelfSlot = LevelManager.Instance.ListShelfSlots;
+            var _listSingleShelf = LevelManager.Instance.ListSingleShelf;
+            for (int i = 0; i < _listShelfSlot.Count; i++)
+            {
+                _listShelfSlot[i].ClearStack();
+            }
+            PutPotionToShelf(_listShelfSlot, _listPotionInShelf);
+            CheckForMatchWhenInit(_listSingleShelf);
         }
-        PutPotionToShelf(_listShelfSlot, _listPotionInShelf);
-        CheckForMatchWhenInit(_listSingleShelf);
+
 
     }
     public void PutPotionToShelf(List<IShelfSlot> listShelfSlot, List<GameObject> listPotionInShelf)
@@ -56,6 +65,25 @@ public class ItemController : MonoBehaviour
         {
             listSingleShelf[i].CheckMatch();
         }
+    }
+    public void FreezeTime()
+    {
+        if (CoinCalculator.Instance.CoinCounter >= FreezeTimePrice)
+        {
+            CoinCalculator.Instance.DecreaseCoin(FreezeTimePrice);
+
+            Timer.Instance.PauseTimer();
+            Sequence sequence = DOTween.Sequence();
+            sequence.AppendInterval(5f);
+            sequence.AppendCallback(() => Timer.Instance.ContinuesTimer()).OnComplete(() =>
+            {
+                sequence.Kill();
+
+            });
+
+        }
+
+
     }
     // Start is called before the first frame update
     void Start()

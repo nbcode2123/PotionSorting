@@ -20,6 +20,7 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         Btn.GetComponent<Image>().sprite = MouseDown;
         Btn.transform.DOScale(new Vector3(scale.x, scale.y, scale.z) * 0.75f, 0.1f).SetEase(Ease.OutQuad);
+        ObserverManager.Notify("ClickBtn", "ClickBtn");
     }
 
     public void OnPointerUp(PointerEventData eventData)

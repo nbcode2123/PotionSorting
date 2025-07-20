@@ -60,6 +60,7 @@ public class CompleteChecker : MonoBehaviour
         {
             Debug.Log("Level Complete");
             ObserverManager.Notify("Level Complete");
+            LevelManager.Instance.Level++;
 
         }
     }
